@@ -64,7 +64,7 @@ git push
       </header>
 
       <main className="container my-4 flex-grow-1">
-        <h1 className="mb-4">Welcome to the homepage</h1>
+        <h1 className="mb-4">Homepage</h1>
 
         <form className="form-group">
           <div className="mb-3">
