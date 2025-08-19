@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import { useState } from 'react';
 import styles from './HamburgerMenu.module.css';
 
@@ -8,23 +9,28 @@ const HamburgerMenu = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <div className={styles.container}>
-      {/* Hamburger icon */}
+    <>
+      {/* Hamburger / Cross icon */}
       <div
-        className={styles.hamburger}
+        className={`${styles.hamburger} ${isOpen ? styles.hamburgerOpen : ''}`}
         onClick={toggleMenu}
         role="button"
         tabIndex={0}
-        aria-label="Toggle menu"
-        onKeyDown={e => { if (e.key === 'Enter') toggleMenu(); }}
+        aria-label={isOpen ? 'Close menu' : 'Open menu'}
+        onKeyDown={e => {
+          if (e.key === 'Enter') toggleMenu();
+        }}
       >
-        <div className={isOpen ? styles.barOpen : styles.bar}></div>
-        <div className={isOpen ? styles.barOpen : styles.bar}></div>
-        <div className={isOpen ? styles.barOpen : styles.bar}></div>
+        <div className={styles.bar}></div>
+        <div className={styles.bar}></div>
+        <div className={styles.bar}></div>
       </div>
 
-      {/* Sidebar navigation */}
-      <nav className={`${styles.menu} ${isOpen ? styles.menuOpen : ''}`} aria-hidden={!isOpen}>
+      {/* Sidebar */}
+      <nav
+        className={`${styles.menu} ${isOpen ? styles.menuOpen : ''}`}
+        aria-hidden={!isOpen}
+      >
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/about">About</a></li>
@@ -36,7 +42,7 @@ const HamburgerMenu = () => {
 
       {/* Overlay */}
       {isOpen && <div className={styles.overlay} onClick={toggleMenu} />}
-    </div>
+    </>
   );
 };
 

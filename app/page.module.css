@@ -1,8 +1,8 @@
-.header {
-  height: 60px;
-  background-color: #f8f9fa;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  padding-left: 15px;
+/* page.css */
+
+body {
+  padding: 12px;
+  background-color: white;
+  color: black;
+  font-size: 12px;
 }

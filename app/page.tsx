@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; 
-import './globals.css'; 
+import { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './globals.css';
 import HamburgerMenu from './Components/HamburgerMenu';
 
 export default function Home() {
@@ -14,6 +14,16 @@ export default function Home() {
   });
 
   const [output, setOutput] = useState<string | null>(null);
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Apply dark mode class to body
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [darkMode]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
@@ -44,24 +54,31 @@ git push
   };
 
   return (
-    
-       <div className="d-flex flex-column min-vh-100">
-      <header className="d-flex align-items-center justify-content-between px-3 py-2 bg-light sticky-top position-relative">
-        {/* Left side: HamburgerMenu */}
-        <div>
+            <div className="d-flex flex-column min-vh-100">
+              <header className="d-flex align-items-center justify-content-between px-3 py-2 sticky-top themed-header">
           <HamburgerMenu />
-        </div>
 
-        {/* Centered: HOME */}
-        <div className="position-absolute start-50 translate-middle-x fw-bold">
-          HOME
-        </div>
+          <div className="position-absolute start-50 translate-middle-x fw-bold">
+            HOME
+          </div>
 
-        {/* Right side: Student ID */}
-        <div className="fw-bold">
-          Student ID: 22239026
-        </div>
-      </header>
+          <div className="d-flex align-items-center gap-3 ms-auto">
+            <span className="fw-bold">Student ID: 22239026</span>
+            <div className="form-check form-switch mb-0">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="themeToggle"
+                checked={darkMode}
+                onChange={() => setDarkMode(prev => !prev)}
+              />
+              <label className="form-check-label" htmlFor="themeToggle">
+                {darkMode ? 'Dark' : 'Light'}
+              </label>
+            </div>
+          </div>
+        </header>
+
 
       <main className="container my-4 flex-grow-1">
         <h1 className="mb-4">Homepage</h1>
@@ -90,7 +107,7 @@ git push
 
         {output && (
           <div className="mt-4">
-            <h5>Generated Git Commands:</h5>
+            <h5>Executed Command:</h5>
             <pre className="bg-dark text-light p-3 rounded">
               <code>{output}</code>
             </pre>
@@ -98,8 +115,8 @@ git push
         )}
       </main>
 
-      <footer className="text-center py-3 mt-auto border-top">
-        &copy; {new Date().getFullYear()} Your Name - Student ID: 22239026
+      <footer className="text-center py-3 mt-auto border-top themed-header">
+        &copy; {new Date().getFullYear()} Shishir Poudel - Student ID: 22239026
       </footer>
     </div>
   );
