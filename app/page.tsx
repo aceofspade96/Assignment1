@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './globals.css';
-import HamburgerMenu from './Components/HamburgerMenu';
+import Header from './Components/Header';
+import Footer from './Components/Footer';
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -15,9 +16,9 @@ export default function Home() {
 
   const [output, setOutput] = useState<string | null>(null);
   const [darkMode, setDarkMode] = useState(false);
+  const [fontSize, setFontSize] = useState(16); // Default font size in px
 
   useEffect(() => {
-    // Apply dark mode class to body
     if (darkMode) {
       document.body.classList.add('dark-mode');
     } else {
@@ -53,32 +54,22 @@ git push
     setOutput(command);
   };
 
+  const increaseFontSize = () => {
+    setFontSize(prev => Math.min(prev + 2, 24));
+  };
+
+  const decreaseFontSize = () => {
+    setFontSize(prev => Math.max(prev - 2, 12));
+  };
+
   return (
-            <div className="d-flex flex-column min-vh-100">
-              <header className="d-flex align-items-center justify-content-between px-3 py-2 sticky-top themed-header">
-          <HamburgerMenu />
-
-          <div className="position-absolute start-50 translate-middle-x fw-bold">
-            HOME
-          </div>
-
-          <div className="d-flex align-items-center gap-3 ms-auto">
-            <span className="fw-bold">Student ID: 22239026</span>
-            <div className="form-check form-switch mb-0">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                id="themeToggle"
-                checked={darkMode}
-                onChange={() => setDarkMode(prev => !prev)}
-              />
-              <label className="form-check-label" htmlFor="themeToggle">
-                {darkMode ? 'Dark' : 'Light'}
-              </label>
-            </div>
-          </div>
-        </header>
-
+    <div className="d-flex flex-column min-vh-100" style={{ fontSize: `${fontSize}px` }}>
+      <Header
+        darkMode={darkMode}
+        toggleDarkMode={() => setDarkMode(prev => !prev)}
+        increaseFontSize={increaseFontSize}
+        decreaseFontSize={decreaseFontSize}
+      />
 
       <main className="container my-4 flex-grow-1">
         <h1 className="mb-4">Homepage</h1>
@@ -115,9 +106,7 @@ git push
         )}
       </main>
 
-      <footer className="text-center py-3 mt-auto border-top themed-header">
-        &copy; {new Date().getFullYear()} Shishir Poudel - Student ID: 22239026
-      </footer>
+      <Footer />
     </div>
   );
 }
