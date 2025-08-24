@@ -1,6 +1,6 @@
 // app/layout.tsx
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './globals.css'; // your global styles, if any
+import './globals.css'; 
 import styles from './layout.module.css';
 import { ReactNode } from 'react';
 

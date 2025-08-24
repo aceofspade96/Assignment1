@@ -1,5 +1,6 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import HamburgerMenu from './HamburgerMenu';
 
 interface HeaderProps {
@@ -15,6 +16,20 @@ export default function Header({
   increaseFontSize,
   decreaseFontSize,
 }: HeaderProps) {
+  const pathname = usePathname();
+
+  // Map pathnames to titles
+  const titles: Record<string, string> = {
+    '/': 'HOME',
+    '/about': 'ABOUT',
+    '/tests': 'TESTS',
+    '/prisma': 'PRISMA/SEQUELIZE',
+    '/docker': 'DOCKER',
+  };
+
+  // Fallback title if path not matched
+  const title = titles[pathname] || 'No Title';
+
   return (
     <>
       {/* Colored Header */}
@@ -23,7 +38,7 @@ export default function Header({
           <HamburgerMenu />
 
           <div className="position-absolute start-50 translate-middle-x fw-bold">
-            HOME
+            {title}
           </div>
 
           <div className="ms-auto text-end">

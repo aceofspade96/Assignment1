@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './globals.css';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
+import Form from './Components/Form';
+import CommandOutput from './Components/CommandOutput';
+import { getCookie, setCookie, checkCookie } from './utlis/Cookies';
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -16,14 +17,29 @@ export default function Home() {
 
   const [output, setOutput] = useState<string | null>(null);
   const [darkMode, setDarkMode] = useState(false);
-  const [fontSize, setFontSize] = useState(16); // Default font size in px
+  const [fontSize, setFontSize] = useState(16);
 
+  // Load cookies on mount
   useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add('dark-mode');
-    } else {
-      document.body.classList.remove('dark-mode');
-    }
+    const savedFontSize = getCookie('fontSize');
+    const savedDarkMode = getCookie('darkMode');
+
+    if (savedFontSize) setFontSize(parseInt(savedFontSize, 10));
+    if (savedDarkMode) setDarkMode(savedDarkMode === 'true');
+
+    
+    // checkCookie('section');
+  }, []);
+
+  // Update fontSize cookie
+  useEffect(() => {
+    setCookie('fontSize', fontSize.toString(), 30);
+  }, [fontSize]);
+
+  // Update darkMode cookie and apply class
+  useEffect(() => {
+    setCookie('darkMode', darkMode.toString(), 30);
+    document.body.classList.toggle('dark-mode', darkMode);
   }, [darkMode]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,13 +70,8 @@ git push
     setOutput(command);
   };
 
-  const increaseFontSize = () => {
-    setFontSize(prev => Math.min(prev + 2, 24));
-  };
-
-  const decreaseFontSize = () => {
-    setFontSize(prev => Math.max(prev - 2, 12));
-  };
+  const increaseFontSize = () => setFontSize(prev => Math.min(prev + 2, 24));
+  const decreaseFontSize = () => setFontSize(prev => Math.max(prev - 2, 12));
 
   return (
     <div className="d-flex flex-column min-vh-100" style={{ fontSize: `${fontSize}px` }}>
@@ -73,37 +84,8 @@ git push
 
       <main className="container my-4 flex-grow-1">
         <h1 className="mb-4">Homepage</h1>
-
-        <form className="form-group">
-          <div className="mb-3">
-            <label className="form-label">Username</label>
-            <input name="username" className="form-control" onChange={handleChange} />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Token</label>
-            <input name="token" className="form-control" onChange={handleChange} />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Owner</label>
-            <input name="owner" className="form-control" onChange={handleChange} />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Repo</label>
-            <input name="repo" className="form-control" onChange={handleChange} />
-          </div>
-          <button type="button" className="btn btn-success" onClick={handleExecute}>
-            Execute
-          </button>
-        </form>
-
-        {output && (
-          <div className="mt-4">
-            <h5>Executed Command:</h5>
-            <pre className="bg-dark text-light p-3 rounded">
-              <code>{output}</code>
-            </pre>
-          </div>
-        )}
+        <Form formData={formData} onChange={handleChange} onExecute={handleExecute} />
+        <CommandOutput output={output} />
       </main>
 
       <Footer />
