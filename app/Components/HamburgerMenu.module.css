@@ -103,3 +103,22 @@
   background: rgba(0,0,0,0.25);
   z-index: 1090;
 }
+
+
+.active {
+  background-color: #e0e0e0; /* or any highlight color */
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 6px 12px;
+  text-decoration: none; /* remove underline if any */
+}
+
+/* hover for all menu items */
+.menu ul li a:hover {
+  background-color: #e0e0e0;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+}
+

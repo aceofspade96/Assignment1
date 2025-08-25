@@ -1,10 +1,8 @@
-// /app/utils/cookies.js
-
 export function setCookie(cname, cvalue, exdays) {
   const d = new Date();
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
   const expires = "expires=" + d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  document.cookie = `${cname}=${encodeURIComponent(cvalue)};${expires};path=/`;
 }
 
 export function getCookie(cname) {
@@ -12,25 +10,14 @@ export function getCookie(cname) {
   const decodedCookie = decodeURIComponent(document.cookie);
   const ca = decodedCookie.split(';');
   for(let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === ' ') {
-      c = c.substring(1);
-    }
+    let c = ca[i].trim();
     if (c.indexOf(name) === 0) {
-      return c.substring(name.length, c.length);
+      return c.substring(name.length);
     }
   }
   return "";
 }
 
-export function checkCookie(section, defaultSection = "#Home", expiryDays = 30) {
-  const userSection = getCookie(section);
-  if (userSection !== "") {
-    const sectionElement = document.querySelector(userSection);
-    if (sectionElement) {
-      sectionElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  } else {
-    setCookie(section, defaultSection, expiryDays);
-  }
+export function deleteCookie(cname) {
+  document.cookie = `${cname}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 }
