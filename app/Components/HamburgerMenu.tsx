@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { setCookie, getCookie } from '../utlis/Cookies'; // adjust path if needed
+import { setCookie, getCookie } from '../utlis/Cookies';
 import styles from './HamburgerMenu.module.css';
 import { usePathname } from 'next/navigation';
 
@@ -16,7 +16,6 @@ const HamburgerMenu = () => {
     if (savedTab) {
       setActiveTab(savedTab);
     } else {
-      // Map pathnames to tab names:
       const pathToTabMap: Record<string, string> = {
         '/': 'Home',
         '/about': 'About',
@@ -32,7 +31,7 @@ const HamburgerMenu = () => {
 
   const handleMenuClick = (tabName: string) => {
     setActiveTab(tabName);
-    setCookie('activeMenuTab', tabName, 30); // expires in 30 days
+    setCookie('activeMenuTab', tabName, 30);
     setIsOpen(false);
   };
 
@@ -65,6 +64,7 @@ const HamburgerMenu = () => {
               href="/"
               className={activeTab === 'Home' ? styles.active : ''}
               onClick={() => handleMenuClick('Home')}
+              tabIndex={isOpen ? 0 : -1}
             >
               Home
             </a>
@@ -74,6 +74,7 @@ const HamburgerMenu = () => {
               href="/about"
               className={activeTab === 'About' ? styles.active : ''}
               onClick={() => handleMenuClick('About')}
+              tabIndex={isOpen ? 0 : -1}
             >
               About
             </a>
@@ -83,6 +84,7 @@ const HamburgerMenu = () => {
               href="/tests"
               className={activeTab === 'Tests' ? styles.active : ''}
               onClick={() => handleMenuClick('Tests')}
+              tabIndex={isOpen ? 0 : -1}
             >
               Tests
             </a>
@@ -92,6 +94,7 @@ const HamburgerMenu = () => {
               href="/prisma"
               className={activeTab === 'Prisma/Sequeelize' ? styles.active : ''}
               onClick={() => handleMenuClick('Prisma/Sequeelize')}
+              tabIndex={isOpen ? 0 : -1}
             >
               Prisma/Sequeelize
             </a>
@@ -101,6 +104,7 @@ const HamburgerMenu = () => {
               href="/docker"
               className={activeTab === 'Docker' ? styles.active : ''}
               onClick={() => handleMenuClick('Docker')}
+              tabIndex={isOpen ? 0 : -1}
             >
               Docker
             </a>

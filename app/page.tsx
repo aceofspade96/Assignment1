@@ -5,10 +5,17 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Form from './Components/Form';
 import CommandOutput from './Components/CommandOutput';
-import { getCookie, setCookie, checkCookie } from './utlis/Cookies';
+import { getCookie, setCookie } from './utlis/Cookies';
+
+interface FormData {
+  username: string;
+  token: string;
+  owner: string;
+  repo: string;
+}
 
 export default function Home() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     username: '',
     token: '',
     owner: '',
@@ -16,8 +23,8 @@ export default function Home() {
   });
 
   const [output, setOutput] = useState<string | null>(null);
-  const [darkMode, setDarkMode] = useState(false);
-  const [fontSize, setFontSize] = useState(16);
+  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [fontSize, setFontSize] = useState<number>(16);
 
   // Load cookies on mount
   useEffect(() => {
@@ -26,9 +33,6 @@ export default function Home() {
 
     if (savedFontSize) setFontSize(parseInt(savedFontSize, 10));
     if (savedDarkMode) setDarkMode(savedDarkMode === 'true');
-
-    
-    // checkCookie('section');
   }, []);
 
   // Update fontSize cookie
