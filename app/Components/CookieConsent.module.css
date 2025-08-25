@@ -1,0 +1,16 @@
+/* CookieConsent.module.css */
+.cookieConsentBanner {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.cookieConsentButton {
+  margin-left: 10px;
+  padding: 5px 10px;
+}

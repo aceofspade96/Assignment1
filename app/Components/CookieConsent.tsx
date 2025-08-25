@@ -1,7 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { setCookie, getCookie, deleteCookie } from '../utlis/Cookies'; 
+import { setCookie, getCookie, deleteCookie } from '../utlis/Cookies';
+import styles from './CookieConsent.module.css';  // import the CSS module
+
 export default function CookieConsent() {
   const [showConsent, setShowConsent] = useState(false);
 
@@ -28,23 +30,12 @@ export default function CookieConsent() {
   if (!showConsent) return null;
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        bottom: 0,
-        width: '100%',
-        backgroundColor: '#333',
-        color: 'white',
-        padding: '15px',
-        textAlign: 'center',
-        zIndex: 1000,
-      }}
-    >
+    <div className={styles.cookieConsentBanner}>
       <span>This website uses cookies to improve your experience.</span>
-      <button onClick={acceptCookies} style={{ marginLeft: '10px', padding: '5px 10px' }}>
+      <button onClick={acceptCookies} className={styles.cookieConsentButton}>
         Accept
       </button>
-      <button onClick={rejectCookies} style={{ marginLeft: '10px', padding: '5px 10px' }}>
+      <button onClick={rejectCookies} className={styles.cookieConsentButton}>
         Reject
       </button>
     </div>

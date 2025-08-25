@@ -25,6 +25,7 @@ export default function Header({
     '/tests': 'TESTS',
     '/prisma': 'PRISMA/SEQUELIZE',
     '/docker': 'DOCKER',
+    '/themes' : 'Themes'
   };
 
   // Fallback title if path not matched

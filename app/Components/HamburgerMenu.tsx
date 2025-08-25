@@ -22,6 +22,7 @@ const HamburgerMenu = () => {
         '/tests': 'Tests',
         '/prisma': 'Prisma/Sequeelize',
         '/docker': 'Docker',
+        '/themes' : 'Theme'
       };
       setActiveTab(pathToTabMap[pathname] || 'Home');
     }
@@ -107,6 +108,16 @@ const HamburgerMenu = () => {
               tabIndex={isOpen ? 0 : -1}
             >
               Docker
+            </a>
+          </li>
+          <li>
+            <a
+              href="/themes"
+              className={activeTab === 'Docker' ? styles.active : ''}
+              onClick={() => handleMenuClick('themes')}
+              tabIndex={isOpen ? 0 : -1}
+            >
+              Themes
             </a>
           </li>
         </ul>
